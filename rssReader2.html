@@ -14,20 +14,34 @@
                 color: rgba(187, 8, 8, 0.507);
                 max-width: 38rem;
                 padding: 2rem;
-                margin: auto;                
+                margin: auto;    
+                font-family:monospace;
+                font-size: xx-large;  
+                          
             }
 
             body {
                 background-color: rgba(143, 64, 212, 0.272);
             }
+
+            .ass {
+             background-color: blanchedalmond;
+             font-family: fantasy;
+             font-size: x-large;
+             font-weight: 500;
+            }
             
         </style>
-        <h1>RSS Reader 1st Draft</h1>
+        <h1>Behind the Bastards Podcast</h1>
         <div x-data="setup()" x-init="init()">
             <template x-for="(entry, index) in feed" :key="index">
 
-                <div x-bind:href="entry.link" x-data="{ open:false }">
-                    <button @click="open = ! open">CLICK HERE</button>
+                <div class="ass" x-bind:href="entry.link" x-data="{ open:false }">
+                    <p>
+                        <span x-text="entry.title" x-text="entry.pubDate"></span>
+                    </p>
+                    
+                    <button @click="open = ! open">CLICK HERE FOR EXCELLENCE</button>
 
                     <div x-show="open">
                         <div> 
