@@ -11,16 +11,25 @@
     <body>
         <div x-data="setup()" x-init="init()"> 
             <template x-for="(entry, index) in feed" :key="index">
+
                 <div>
                     <span x-text="entry.title"> </span> <a x-bind:href="entry.link" x-text="entry.link"></a>
                 </div>
 
             </template>
             
+        </div>  
+        <div x-data="{ open: false }">
+            <button @click="open = ! open">Toggle Content</button>
+         
+            <div x-show="open">
+                Content...
+            </div>
         </div>
 
         <script>
             let parser = new RSSParser()
+
             function setup () {
                 return {
                     feed: [], 
@@ -28,9 +37,9 @@
                     sources: [
                         //'https://codecourse.com/api/rss/courses',
                         //'https://buttondown.email/alpinejs/rss',
-                        //'https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss',
+                        'https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss',
                         //'https://omny.fm/shows/stuff-they-dont-want-you-to-know/playlists/podcast.rss',
-                        'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2E824128-FBD5-4C9E-9A57-AE2F0056B0C4/66D98A23-900C-44B0-A40B-AE2F0056B0DB/podcast.rss'
+                        //'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2E824128-FBD5-4C9E-9A57-AE2F0056B0C4/66D98A23-900C-44B0-A40B-AE2F0056B0DB/podcast.rss'
                     ],
 
                     get (source) {
@@ -43,7 +52,7 @@
                         })
                     },
 
-                    addToFeed (entry) {
+                   addToFeed (entry) {
                         this.feed.push({
                             title: entry.title,
                             link: entry.link,
@@ -59,9 +68,12 @@
                             this.get(source)
                         })
                     }
+
+                    
                 }
             }
         </script>
+        <div x-init="console.log('I\'m being initialized!')"></div>
 
     </body>
 </html>
