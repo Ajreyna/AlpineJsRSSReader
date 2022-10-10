@@ -10,22 +10,25 @@
     </head>
     <body>
         <div x-data="setup()" x-init="init()"> 
-            <template x-for="(entry, index) in feed" :key="index">
+           <template x-for="entry in feed " :key=>
 
-                <div>
-                    <span x-text="entry.title"> </span> <a x-bind:href="entry.link" x-text="entry.link"></a>
-                </div>
+            <div>
+                <span class="date" x-text="entry.date.toDateString()"></span>
+            </div>
 
-            </template>
+            <button>
+                
+                    <span x-text="entry.title"></span> <a x-bind:href="entry.link" x-text="entry.link"></a>
+
+                </button>
+            
+           </template>
+        
             
         </div>  
-        <div x-data="{ open: false }">
-            <button @click="open = ! open">Toggle Content</button>
-         
-            <div x-show="open">
-                Content...
-            </div>
-        </div>
+       
+       
+    
 
         <script>
             let parser = new RSSParser()
@@ -63,6 +66,12 @@
                         
                     },
 
+                    sortedFeed () {
+                        return this.feed.sort((first, second) => {
+                            return second.date.getTime() -first.date.getTime()
+                        })
+                    },
+
                     init () {
                         this.sources.forEach(source => {
                             this.get(source)
@@ -73,7 +82,16 @@
                 }
             }
         </script>
-        <div x-init="console.log('I\'m being initialized!')"></div>
+       
 
     </body>
+
+  <!--  <body>
+        <div x-data="setup()" x-init="init()">
+            <template x-for="(entry, index) in feed" :key="index">
+                <p>assPoo</p>
+            </template>
+        </div>
+    </body>
+--> 
 </html>

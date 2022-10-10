@@ -1,6 +1,22 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="eng">
-    <head>
-        <meta charset="UTF-8"
+    <head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alpine.Js RSS</title>
+
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/rss-parser@3.12.0/dist/rss-parser.min.js"></script>
     </head>
+
+    <body>
+        <div class="flex-container" x-data="setup()" x-init="init()">
+            <template x-for="(entry, index) in feed" :key="index">
+                <div x-bind:href="entry.link" x-data="{open:false">
+
+                </div>
+            </template>
+        </div>
+
+    </body>
 </html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>Practice Alpine</title>
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/rss-parser@3.12.0/dist/rss-parser.min.js"></script>
+    </head>
+
+    <body>
+        
+       <div x-data="setup()" x-init="init()">
+      
+            <template x-for="(entry, index) in feed" :key="index">
+                
+                <div x-bind:href="entry.link" x-data="{open: false}">
+                    <table>
+                    <thead>
+                        <tr x-text="entry.title">
+                            <th colspan="2"></th>
+                        </tr>
+                    <tbody>
+                        <td x-text="entry.title" x-text="entry.date.pubDate"></td>
+                    </tbody>
+                    </thead>
+                    </table> 
+                </div>
+            </template>
+       </div> 
+
+
+       <style>
+            table {
+                 width: 100%;
+                 max-width: 45%;
+                 height: 240px;
+                 margin: 0 auto;
+                 display:block; 
+                 overflow-x: auto;
+                 border-spacing: 0;}
+
+            tbody {
+                white-space: nowrap;
+            }
+            table,  td {border: 4px solid #333;
+            }
+
+            thead,
+            tfoot {
+                background-color: #333;
+                color: #fff;
+            }
+
+       </style>
+        
+    <script>
+        let parser = new RSSParser()
+
+        function setup() {
+            return {
+                feed: [],
+
+                sources: [
+                    'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/A91018A4-EA4F-4130-BF55-AE270180C327/44710ECC-10BB-48D1-93C7-AE270180C33E/podcast.rss',
+                ],
+
+                get (source) {
+                    parser.parseURL(source, (err, feed) => {
+                        if (err) {}
+
+                        feed.items.forEach(entry => {
+                            this.addToFeed(entry)
+                            
+                        });
+                    })
+                },
+
+                addToFeed (entry) {
+                    this.feed.push({
+                        title: entry.title,
+                        link: entry.link,
+
+                        date:new Date(entry.pubDate),
+
+                    })
+                },
+
+                sortedFeed () {
+                        return this.feed.sort((first, second) => {
+                            return second.date.getTime() -first.date.getTime()
+                        })
+                    },
+
+                init () {
+                    this.sources.forEach(source => {
+                        this.get(source)
+                    })
+                }
+
+
+            }
+        }
+    </script>
+
+</body>
+</html>

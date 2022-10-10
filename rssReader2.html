@@ -10,6 +10,8 @@
     </head>
     <body>
         <style>
+
+            
             h1 {
                 color: rgba(187, 8, 8, 0.507);
                 max-width: 38rem;
@@ -24,28 +26,53 @@
                 background-color: rgba(143, 64, 212, 0.272);
             }
 
-            .ass {
-             background-color: blanchedalmond;
-             font-family: fantasy;
-             font-size: x-large;
-             font-weight: 500;
+             
+
+        
+
+            .btn {
+                flex: auto;
+               
             }
             
-        </style>
-        <h1>Behind the Bastards Podcast</h1>
-        <div x-data="setup()" x-init="init()">
-            <template x-for="(entry, index) in feed" :key="index">
+           p {
+            display: grid;
+            grid-template-columns: 10em 10em 10em 10em;
+            grid-template-rows: 80px 10px;
+            gap: 10px;
+            padding: 10px;
+            border-top:rgba(143, 64, 212, 0.272)
+            
+            
+           }
 
-                <div class="ass" x-bind:href="entry.link" x-data="{ open:false }">
+            p  > span   {
+            background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 20px 0;
+  font-size: 20px;
+           }
+
+            
+            
+        </style>
+        
+        <div  x-data="setup()" x-init="init()">
+            <template class="size-queen" x-for="(entry, index) in feed" :key="index">
+                <div class="grid-container" x-bind:href="entry.link" x-data="{ open:false }">
                     <p>
-                        <span x-text="entry.title" x-text="entry.pubDate"></span>
+                        <span x-text="entry.title" x-text="entry.date.toDateString()"></span>
                     </p>
                     
-                    <button @click="open = ! open">CLICK HERE FOR EXCELLENCE</button>
+                    <button class="btn" @click="open = ! open">
+                        <a x-bind:href="entry.link"></a>CLICK HERE FOR EXCELLENCE</button>
 
                     <div x-show="open">
                         <div> 
-                           <span x-text="entry.title"></span> <a x-bind:href="entry.link" x-text="entry.link" ></a>
+                            <h4>Published on:</h4>
+                           <span class="date" x-text="entry.date.toDateString()"></span>
+                          
+                            <a x-bind:href="entry.link" x-text="entry.link" ></a>
                        </div>
                     </div>
 
@@ -53,6 +80,9 @@
                     
                 </div>
             </template>
+        </div>
+
+        <div class="flex2"><p>ass</p>
         </div>
 
        <script>
@@ -71,6 +101,10 @@
                     //'https://www.rtl-sdr.com/sdrsharp-big-guide-book-updated-to-v5-3',
                     'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/E5F91208-CC7E-4726-A312-AE280140AD11/D64F756D-6D5E-4FAE-B24F-AE280140AD36/podcast.rss'
                 ],
+
+             //   sources2: [
+               //     'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2E824128-FBD5-4C9E-9A57-AE2F0056B0C4/66D98A23-900C-44B0-A40B-AE2F0056B0DB/podcast.rss'
+               // ],
 
                 get (source) {
                     parser.parseURL(source,(err, feed) => {
@@ -92,9 +126,19 @@
                     })
                 },
 
+                sortedFeed () {
+                        return this.feed.sort((first, second) => {
+                            return second.date.getTime() -first.date.getTime()
+                        })
+                    },
+
+
                 init () {
                     this.sources.forEach(source => {
                         this.get(source)
+                    //this.sources2.forEach(source => {
+                      //  this.get(source)
+                    //})
                     })
                 }
 
@@ -103,5 +147,56 @@
         }
         
        </script>
+
+      <!-- <script>
+        parser = new RSSParser();
+
+        customFields: {
+            feed: []
+        }
+
+       function setup() {
+        return { 
+            feed: [],
+
+            sources:[
+                'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2E824128-FBD5-4C9E-9A57-AE2F0056B0C4/66D98A23-900C-44B0-A40B-AE2F0056B0DB/podcast.rss'
+            ],
+
+            get (source) {
+                parser.parseURL(source, (err, feed) => {
+                    if (err) {}
+
+                    feed.items.forEach(entry => {
+                        this.addToFeed(entry)
+                    });
+                })
+            },
+
+            addToFeed (entry) {
+                this.feed.push({
+                    title:entry.title,
+                    link: entry.link,
+
+                    date: new Date(entry.pubDate)
+
+                })
+            },
+
+            init () {
+                this.sources.forEach(source => {
+                    this.get(source)
+                })
+            }
+
+            
+
+
+        }
+       }
+
+       </script>
+
+    -->
     </body>
 </html>
