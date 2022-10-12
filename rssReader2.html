@@ -10,6 +10,9 @@
     </head>
     <body>
         <style>
+            .size-queen {
+                justify-self: stretch;
+            }
 
             
             h1 {
@@ -19,6 +22,8 @@
                 margin: auto;    
                 font-family:monospace;
                 font-size: xx-large;  
+                align-content:inherit;
+                display:grid;
                           
             }
 
@@ -37,26 +42,39 @@
             
            p {
             display: grid;
-            grid-template-columns: 10em 10em 10em 10em;
+            grid-template-columns: 90% 10em 10em 10em;
             grid-template-rows: 80px 10px;
             gap: 10px;
             padding: 10px;
-            border-top:rgba(143, 64, 212, 0.272)
+            border-top:rgba(13, 64, 212, 0.272)
             
             
            }
 
             p  > span   {
-            background-color: rgba(255, 255, 255, 0.8);
-  text-align: left;
+            background-color: rgba(233, 180, 24, 0.674);
+  text-align: center;
   padding: 20px 0;
+  
   font-size: 20px;
+           }
+
+           .a {
+            border-bottom: 10em;
+            border-color: burlywood ;
+            border-width: 15px;
+           }
+
+           .ass {
+            background-color: bisque;
            }
 
             
             
         </style>
-        
+       <p> <a href="file:///Users/WIZ4RD/Desktop/AlpineJS/alpineJsRSS.html">stuff you should know</a></p>
+        <h1>Behind the Bastards</h1>
+        </h1>
         <div  x-data="setup()" x-init="init()">
             <template class="size-queen" x-for="(entry, index) in feed" :key="index">
                 <div class="grid-container" x-bind:href="entry.link" x-data="{ open:false }">
@@ -65,14 +83,18 @@
                     </p>
                     
                     <button class="btn" @click="open = ! open">
-                        <a x-bind:href="entry.link"></a>CLICK HERE FOR EXCELLENCE</button>
+                        <a class="linebreak" x-bind:href="entry.link"></a>CLICK HERE FOR EXCELLENCE</button>
 
-                    <div x-show="open">
+                        <hr>    
+
+
+                    <div class="ass" x-show="open">
                         <div> 
                             <h4>Published on:</h4>
                            <span class="date" x-text="entry.date.toDateString()"></span>
-                          
+                          <hr>
                             <a x-bind:href="entry.link" x-text="entry.link" ></a>
+                            <hr>
                        </div>
                     </div>
 

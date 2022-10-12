@@ -21,7 +21,9 @@
                             <th colspan="2"></th>
                         </tr>
                     <tbody>
-                        <td x-text="entry.title" x-text="entry.date.pubDate"></td>
+                        <p>published on:</p>
+                       <span x-text="entry.title" x-text="entry.date.toDateString()">
+                        </span>
                     </tbody>
                     </thead>
                     </table> 
@@ -38,7 +40,10 @@
                  margin: 0 auto;
                  display:block; 
                  overflow-x: auto;
-                 border-spacing: 0;}
+                 border-spacing: 0;
+                 
+                }
+                 
 
             tbody {
                 white-space: nowrap;
@@ -46,10 +51,9 @@
             table,  td {border: 4px solid #333;
             }
 
-            thead,
-            tfoot {
-                background-color: #333;
-                color: #fff;
+            thead,tfoot {
+                background-color: rgb(139, 61, 175);
+                color: rgb(223, 218, 189);
             }
 
        </style>
@@ -81,7 +85,7 @@
                         title: entry.title,
                         link: entry.link,
 
-                        date:new Date(entry.pubDate),
+                        date: new Date(entry.pubDate),
 
                     })
                 },
