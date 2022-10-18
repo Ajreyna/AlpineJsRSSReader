@@ -3,7 +3,7 @@
     <head> 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Behind The Bastards Podcast Feed</title>
+        <title>Stuff they don't want you to know</title>
 
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/rss-parser@3.12.0/dist/rss-parser.min.js"></script>
@@ -22,7 +22,7 @@
                 margin: auto;    
                 font-family:monospace;
                 font-size: xx-large;  
-                align-content:inherit;
+                align-content:right;
                 display:grid;
                           
             }
@@ -72,8 +72,8 @@
             
             
         </style>
-       <p> <a href="file:///Users/WIZ4RD/Desktop/AlpineJS/alpineJsRSS.html">stuff you should know</a></p>
-        <h1>Behind the Bastards</h1>
+       <button> <a href="file:///Users/WIZ4RD/Desktop/AlpineJS/rssReader2.html">btb</a></button>
+        <h1>Stuff they don't want you to know</h1>
         </h1>
         <div  x-data="setup()" x-init="init()">
             <template class="size-queen" x-for="(entry, index) in feed" :key="index">
@@ -120,8 +120,7 @@
                 feed: [],
 
                 sources: [
-                    //'https://www.rtl-sdr.com/sdrsharp-big-guide-book-updated-to-v5-3',
-                    'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/E5F91208-CC7E-4726-A312-AE280140AD11/D64F756D-6D5E-4FAE-B24F-AE280140AD36/podcast.rss'
+                    'https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2E824128-FBD5-4C9E-9A57-AE2F0056B0C4/66D98A23-900C-44B0-A40B-AE2F0056B0DB/podcast.rss',
                 ],
 
              //   sources2: [
